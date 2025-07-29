@@ -23,7 +23,7 @@ src
 │       └── org.example.screens       # Page Objects (LoginScreen, HomeScreen, etc.)  
 └── test  
 └── java  
-└── org.example              # Clases de prueba (ChatbotTests, BaseTest, etc.)
+└── org.example                       # Clases de prueba (ChatbotTests, BaseTest, etc.)
 
 Otros archivos:
 - .gitignore
@@ -45,11 +45,11 @@ Otros archivos:
  ```bash
    appium driver install uiautomator2
    appium driver install xcuitest
-    ``` 
+ ``` 
 4.	Inicia Appium Server
 ```bash
    appium   
-   ``` 
+``` 
 5. Ejecuta un emulador Android desde Android Studio
     Para este caso es importante que tengas la version dev del .apk del chatbot (microapp)
     junto con que el emulador android a usar sea android 36 y preferiblemente Pixel 9.
