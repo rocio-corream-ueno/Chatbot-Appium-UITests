@@ -53,7 +53,7 @@ Otros archivos:
 5. Ejecuta un emulador Android desde Android Studio
     Para este caso es importante que tengas la version dev del .apk del chatbot (microapp)
     junto con que el emulador android a usar sea android 36 y preferiblemente Pixel 9.
-    Se recomienda abriri en proyecto nuevo para a apk y usar el emulador mencionado.
+    Se recomienda abrir en proyecto nuevo para apk y usar el emulador mencionado.
 
 ## 🧪 Ejecución de pruebas
 
