@@ -1,0 +1,97 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+# Compilación de Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Archivos de log
+*.log
+
+# Archivos generados por Maven
+/target/
+/dependency-reduced-pom.xml
+/buildNumber.properties
+
+# Archivos temporales del sistema
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración de IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Configuración de Android Studio
+.gradle/
+.local.properties
+/.idea
+.cxx/
+*.keystore
+
+# Archivos generados por Appium o adb
+*.apk
+*.ipa
+app/build/
+output.json
+adb.txt
+
+# Carpeta de resultados de pruebas
+/test-output/
+surefire-reports/
+
+# Otros archivos comunes
+*.orig
+*.rej
+*.bak
+*.tmp
+*.log.*
+
+# Configuración del sistema operativo
+.env
