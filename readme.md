@@ -67,6 +67,7 @@ Desde IntelliJ IDEA:
 •	BaseTest.java: Configura el AppiumDriver para Android
 •	LoginScreen.java: Page Object del login (inputs y botón)
 •	HomeScreen.java: Pantalla que aparece luego del login
+•   ChatWithUendiScreen.java: Pantalla de chatbot 
 •	ChatbotTests.java: Pruebas de navegación y validación de flujo
 
 ## 🧼 Limpieza antes de cada ejecución
@@ -80,8 +81,14 @@ Para garantizar pruebas consistentes:
    - El botón “Iniciar sesión” solo se habilita si ambos campos están completos
    - Si Appium Inspector no está funcionando, puedes usar driver.getPageSource() para inspeccionar elementos manualmente
    - Se utiliza WebDriverWait para asegurar que los elementos estén listos antes de interactuar.
-
+   - Mejorar Assert de resultado de las respuestas del chatbot
+   - Se usa archivo JSON para crear preguntas y archivo JSON de salida (test-output)
+   - Se está usando **.apk de microapp** la cual se debe definir la ruta donde se está guardando esta app en BaseTest.java (hay que modificarlo para sacarlo de ahi)
+```bash
+  .setApp(".../app-debug.apk") 
+   ``` 
 ## ✅ Casos de prueba cubiertos
 - Login exitoso 
 - Navegación a la pantalla de bienvenida 
 - Acceso al chatbot a través del botón “Open Chat with Uendi”
+- Acceso a chatbot y hace un mini recorrido de opcion Tarjetas en el arbol
