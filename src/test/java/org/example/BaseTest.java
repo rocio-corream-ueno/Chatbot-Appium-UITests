@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.example.utils.ChatbotOutputWriter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class BaseTest {
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); //URL por defecto cuando sube appium
         System.out.println("✔ Appium driver iniciado correctamente");
+    }
+    public void setupOutputFile() {
+        ChatbotOutputWriter.prepareOutputFile();
     }
 
     @AfterClass (alwaysRun = true)

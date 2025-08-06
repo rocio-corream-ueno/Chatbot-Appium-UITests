@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.openqa.selenium.StaleElementReferenceException;
 
 
@@ -23,10 +24,6 @@ public class ChatWithUendiScreen {
         this.driver = driver;
     }
 
-    public int getCurrentBotMessageCount() {
-        return driver.findElements(botMessages).size();
-    }
-
     public void sendMessage(String message) {
         // Clic en el input
         WebElement input = driver.findElement(inputField);
@@ -35,7 +32,6 @@ public class ChatWithUendiScreen {
 
         // Clic en el segundo ImageView (índice 1 porque empieza en 0)
         List<WebElement> buttons = driver.findElements(sendButtons);
-        List<WebElement> allElements = driver.findElements(By.xpath("//*"));
         if (buttons.size() > 1) {
             buttons.get(1).click(); // Segundo botón
         } else {
@@ -43,33 +39,44 @@ public class ChatWithUendiScreen {
         }
     }
 
-    public String waitForNewBotMessages(String palabraClave) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        long startTime = System.currentTimeMillis();
-        long timeout = 5000; // 5 segundos
+    public List<String> waitForNewBotMessages(List<String> previousMessages) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        while (System.currentTimeMillis() - startTime < timeout) {
+        return wait.until(driver -> {
             try {
-                // Siempre buscamos los elementos de nuevo para evitar el StaleElementReferenceException
-                List<WebElement> mensajes = driver.findElements(By.className("android.view.View"));
+                Thread.sleep(7000); // Espera inicial
 
-                for (WebElement mensaje : mensajes) {
-                    String texto = mensaje.getAttribute("text");
-                    if (texto != null && texto.toLowerCase().contains(palabraClave.toLowerCase())) {
-                        System.out.println("✅ Respuesta del bot: " + texto);
-                        return texto;
-                    }
+                List<WebElement> allViews = driver.findElements(botMessages);
+
+                List<String> allBotReplies = allViews.stream()
+                        .map(element -> {
+                            try {
+                                String desc = element.getAttribute("content-desc");
+                                if (desc == null || desc.trim().isEmpty()) {
+                                    desc = element.getText(); // fallback
+                                }
+                                return desc;
+                            } catch (StaleElementReferenceException e) {
+                                return null;
+                            }
+                        })
+                        .filter(desc -> desc != null && !desc.trim().isEmpty())
+                        .collect(Collectors.toList());
+
+                List<String> newReplies = allBotReplies.stream()
+                        .filter(msg -> previousMessages == null || !previousMessages.contains(msg))
+                        .collect(Collectors.toList());
+
+                if (!newReplies.isEmpty()) {
+                   // newReplies.forEach(msg -> System.out.println("✅ Bot reply found: " + msg));
+                    return newReplies;
                 }
 
-                Thread.sleep(500); // esperamos medio segundo antes de reintentar
-            } catch (StaleElementReferenceException e) {
-                // ignoramos y reintentamos en el siguiente ciclo
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("Thread interrumpido", e);
-            }
-        }
+                return null;
 
-       return null;
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Interrupted while waiting for bot response", e);
+            }
+        });
     }
 }
