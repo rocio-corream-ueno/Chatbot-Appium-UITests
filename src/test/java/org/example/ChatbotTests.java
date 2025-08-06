@@ -3,10 +3,17 @@ package org.example;
 import org.example.screens.ChatWithUendiScreen;
 import org.example.screens.HomeScreen;
 import org.example.screens.LoginScreen;
-import org.testng.Assert;
-import java.util.List;
+import org.example.utils.ChatbotOutputWriter;
+import org.example.utils.ChatbotQuestionLoader;
+import org.example.model.ChatbotInteraction;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.openqa.selenium.TimeoutException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ChatbotTests extends BaseTest {
 
@@ -24,20 +31,37 @@ public class ChatbotTests extends BaseTest {
         chatbotScreen = new ChatWithUendiScreen(driver);
     }
 
-    @Test(priority = 1)
-    public void chatbot_tarjetas() {
-        ChatWithUendiScreen chatbot = new ChatWithUendiScreen(driver);
+    @Test
+    public void ChatbotCardsQuestions() throws IOException {
+        ChatWithUendiScreen chatbotScreen = new ChatWithUendiScreen(driver);
+        List<String> questions = ChatbotQuestionLoader.loadQuestionsFromJson();
+        List<ChatbotInteraction> interactions = new ArrayList<>();
+        List<String> previousReplies = new ArrayList<>();
 
-        chatbot.sendMessage("Hola");
-        String respuesta = chatbot.waitForNewBotMessages("tarjetas");
-        System.out.println(respuesta != null ? "✅ Bot respondió: " + respuesta : "❌ No se encontró respuesta con 'tarjetas'");
+        for (String question : questions) {
+            chatbotScreen.sendMessage(question);
 
-        chatbot.sendMessage("a");
-        String respuesta2 = chatbot.waitForNewBotMessages("credito");
-        System.out.println(respuesta2 != null ? "✅ Bot respondió: " + respuesta2 : "❌ No se encontró respuesta con 'credito'");
+            List<String> newReplies;
+            try {
+                newReplies = chatbotScreen.waitForNewBotMessages(previousReplies);
+            } catch (TimeoutException e) {
+                newReplies = new ArrayList<>();
+            }
 
-        chatbot.sendMessage("b");
-        String respuesta3 = chatbot.waitForNewBotMessages("funciona");
-        System.out.println(respuesta3 != null ? "✅ Bot respondió: " + respuesta3 : "❌ No se encontró respuesta con 'funciona'");
+            String response = newReplies != null && !newReplies.isEmpty()
+                    ? newReplies.get(newReplies.size() - 1)
+                    : "[No response]";
+
+            if (newReplies != null) {
+                previousReplies.addAll(newReplies);
+            }
+
+            //System.out.println("❓ Question: " + question);
+            //System.out.println("🤖 Response: " + response);
+
+            interactions.add(new ChatbotInteraction(question, response));
+        }
+
+        ChatbotOutputWriter.writeInteractionsToJson(interactions);
     }
 }
