@@ -9,6 +9,7 @@ import org.example.model.ChatbotInteraction;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,6 +61,8 @@ public class ChatbotTests extends BaseTest {
             //System.out.println("🤖 Response: " + response);
 
             interactions.add(new ChatbotInteraction(question, response));
+            Assert.assertFalse(response.isEmpty(), "The bot response should not be empty for question: " + question);
+
         }
 
         ChatbotOutputWriter.writeInteractionsToJson(interactions);

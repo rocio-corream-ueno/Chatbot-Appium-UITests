@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import io.appium.java_client.AppiumBy;
 
 import java.time.Duration;
 import java.util.List;
@@ -64,17 +65,14 @@ public class LoginScreen {
     }
 
     public void tapLogin() {
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(buttonClass, 0));
-        List<WebElement> buttons = driver.findElements(buttonClass);
+        // 1. Define el localizador para el botón "Iniciar sesión"
+        By loginButtonLocator = AppiumBy.accessibilityId("Iniciar sesión");
 
-        for (WebElement btn : buttons) {
-            if (btn.isEnabled()) {
-                btn.click();
-                return;
-            }
-        }
+        // 2. Esperar a que el botón sea "clickeable"
+        wait.until(ExpectedConditions.elementToBeClickable(loginButtonLocator));
 
-        throw new RuntimeException("Botón 'Iniciar sesión' visible pero no habilitado");
+        // 3. y hacer clic
+        driver.findElement(loginButtonLocator).click();
     }
 
     // Utilidad simple para pausar

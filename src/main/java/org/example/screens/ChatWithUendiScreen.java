@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.StaleElementReferenceException;
+import io.appium.java_client.AppiumBy;
 
 
 
@@ -25,17 +26,20 @@ public class ChatWithUendiScreen {
     }
 
     public void sendMessage(String message) {
-        // Clic en el input
+        // Click on the input field and send the message
         WebElement input = driver.findElement(inputField);
         input.click();
         input.sendKeys(message);
 
-        // Clic en el segundo ImageView (índice 1 porque empieza en 0)
+        // Locate the button
         List<WebElement> buttons = driver.findElements(sendButtons);
-        if (buttons.size() > 1) {
-            buttons.get(1).click(); // Segundo botón
+
+        //Si la lista no está vacía, haz clic en el ÚLTIMO elemento
+        if (!buttons.isEmpty()) {
+            //selecciona el último elemento de la lista
+            buttons.get(buttons.size() - 1).click();
         } else {
-            throw new RuntimeException("Botón de envío no encontrado.");
+            throw new RuntimeException("No se encontró ningún ImageView (botón de enviar).");
         }
     }
 
