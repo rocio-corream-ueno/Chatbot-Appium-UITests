@@ -8,7 +8,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.StaleElementReferenceException;
-import io.appium.java_client.AppiumBy;
 
 
 

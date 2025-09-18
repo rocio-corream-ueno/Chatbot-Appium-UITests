@@ -1,17 +1,14 @@
-target/
+### Maven build y dependencias ###
+/target/
+/out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
-### Maven
-target/
-!.mvn/wrapper/maven-wrapper.jar
+/dependency-reduced-pom.xml
+/buildNumber.properties
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -35,6 +32,11 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+###Node.js###
+node_modules/
+npm-debug.log
+yarn-error.log
+
 ### VS Code ###
 .vscode/
 
@@ -49,11 +51,6 @@ build/
 
 # Archivos de log
 *.log
-
-# Archivos generados por Maven
-/target/
-/dependency-reduced-pom.xml
-/buildNumber.properties
 
 # Archivos temporales del sistema
 *.swp

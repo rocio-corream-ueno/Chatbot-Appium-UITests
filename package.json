@@ -1,0 +1,24 @@
+{
+  "name": "myappiumtest",
+  "version": "1.0.0",
+  "description": "Este proyecto contiene pruebas automatizadas para una aplicación Android utilizando Appium, Java, y TestNG.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup:drivers": "appium driver install uiautomator2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rocio-corream-ueno/Chatbot-Appium-UITests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rocio-corream-ueno/Chatbot-Appium-UITests/issues"
+  },
+  "homepage": "https://github.com/rocio-corream-ueno/Chatbot-Appium-UITests#readme",
+  "devDependencies": {
+    "appium": "^3.0.2"
+  }
+}
