@@ -46,18 +46,27 @@ Asegúrate también de que tu variable `PATH` incluya las siguientes carpetas:
 
 ## 3. 🛠️ Estructura del Proyecto
 
-src  
-├── main  
-│   └── java  
-│       └── org.example.screens       # Page Objects (LoginScreen, HomeScreen, etc.)  
-└── test  
-└── java  
-└── org.example                       # Clases de prueba (ChatbotTests, BaseTest, etc.)
-
-Otros archivos:
-- .gitignore
-- README.md
-
+```
+.
+├── .gitignore                # Ignora archivos locales (como /target y /node_modules)
+├── pom.xml                   # El "instalador" de dependencias de Java (Appium + Selenium)
+├── package.json              # El "instalador" del servidor Appium (Node.js)
+├── package-lock.json         # Versiones exactas de Node (subir a Git)
+├── README.md                 # El manual de instalación (este archivo)
+└── src
+    ├── main
+    │   └── java
+    │       └── org.example
+    │           ├── model     # Estructura de archivo de carga de preguntas al chatbot
+    │           ├── screens   # Page Objects (LoginScreen, HomeScreen, etc.)
+    │           └── utils     # Utilidades (Lectura y escritura de respuestas del chatbot)
+    └── test
+        ├── java
+        │   └── org.example   # Clases de prueba (ChatbotTests, BaseTest, etc.)
+        └── resources
+            ├── config.properties      # Donde se almacena la ruta al archivo JSON
+            └── Questions_Cards.json   # Archivo JSON con preguntas para el chatbot
+```
 ---
 
 ## 4. 🚀 Clonación e Instalación del Proyecto
@@ -67,27 +76,27 @@ Estos pasos descargarán el código e instalarán la combinación exacta de libr
 ### a. **Clona el proyecto:**
 ```bash
     git clone [URL_DE_TU_REPOSITORIO.git]
-    cd MyAppiumTest
+    cd NombreDelProyecto
   ```
 
 ### b. **Instala las Dependencias de Java (Maven):**
 Este comando leerá el `pom.xml` y descargará la combinación compatible que encontramos: **(Appium 9.2.1 + Selenium 4.21.0)**.
-    ```bash
+```bash
     mvn clean install
-    ```
+  ```
 *(Si este comando falla por compilación, asegúrate de que tu IDE no esté bloqueando los archivos y que estés usando JDK 21).*
 
 ### c. **Instala el Servidor Appium (Node):**
 Este comando leerá el `package.json` para instalar Appium localmente.
-    ```bash
+```bash
     npm install
-    ```
+   ```
 
 ### d. **Instala el Driver de Android:**
 Este comando (definido en `package.json`) usa el Appium local para instalar el driver `uiautomator2`.
-    ```bash
+```bash
     npm run setup:drivers
-    ```
+   ```
 ---
 
 ## 4. ▶️ Cómo Ejecutar las Pruebas
